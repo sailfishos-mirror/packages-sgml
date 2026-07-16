@@ -2011,6 +2011,12 @@ pl_sgml_parse(term_t parser, term_t options)
     pd = new_parser_data(p);
   }
 
+  /* Options are scanned by hand rather than through PL_scan_options()
+     because call(Type, Goal) is an arity-2 option that the generic
+     option scanner cannot express.  As a consequence these options are
+     not available as a dict.
+  */
+
   while ( PL_get_list(tail, head, tail) )
   { if ( PL_is_functor(head, FUNCTOR_document1) )
     { pd->list  = PL_new_term_ref();
